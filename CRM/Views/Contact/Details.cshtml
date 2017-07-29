@@ -1,0 +1,47 @@
+﻿@model CRM.Models.Contact
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Профиль контакта</h2>
+@*<div>@Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64," + Convert.ToBase64String(model => model.Image) + "\" />")</div>*@
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Surname)</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+       
+        </dd>
+
+        <dt>@Html.DisplayNameFor(model => model.MiddleName)</dt>
+        <dd>@Html.DisplayFor(model => model.MiddleName)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Phone)</dt>
+        <dd>@Html.DisplayFor(model => model.Phone)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd>@Html.DisplayFor(model => model.Email)</dd>
+    </dl>
+</div>
+<p>
+    <a asp-action="EditContact" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</p> 
+<p>
+    @Html.ActionLink("Редактировать контакт", "EditContact", new { @Model.ID })
+    @*@Html.ActionLink(item.Surname, "Details", new { item.ID })*@
+</p>
+
+    @if (Model.Image != null)
+    {
+        <div class="pull-left" style="margin-right: 10px">
+            <img class="img-thumbnail" width="300" height="300"
+                 src="@Url.Action("GetImage", "Contact",
+                new { Model.ID })" />
+        </div>
+    }
+

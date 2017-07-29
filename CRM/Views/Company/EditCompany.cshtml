@@ -1,0 +1,43 @@
+﻿@model CRM.Models.Company
+
+@{
+    ViewBag.Title = "EditCompany";
+}
+
+<h2>Редактирование контакта</h2>
+@using (Html.BeginForm("EditCompany", "Company", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <fieldset>
+        <legend>Добавить контакт</legend>
+
+        <div class="editor-label">Название компании</div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="editor-label">Телефон раб.</div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Phone)
+            @Html.ValidationMessageFor(model => model.Phone)
+        </div>
+        <div class="editor-label">Email раб.</div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+        <div class="editor-label">Адрес</div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Adress)
+            @Html.ValidationMessageFor(model => model.Adress)
+        </div>
+        <div class="editor-label">Логотип компании</div>
+        <div class="editor-field">
+            <input type="file" name="uploadImage" />
+        </div>
+
+        <p>
+            <input type="submit" value="Редактировать" />
+        </p>
+    </fieldset>
+}

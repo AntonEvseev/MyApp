@@ -1,0 +1,46 @@
+﻿@model CRM.Models.Company
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Профиль компании</h2>
+@*<div>@Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64," + Convert.ToBase64String(model => model.Image) + "\" />")</div>*@
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Phone)</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+
+        </dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd>@Html.DisplayFor(model => model.Email)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Adress)</dt>
+        <dd>@Html.DisplayFor(model => model.Adress)</dd>
+
+        
+    </dl>
+</div>
+<p>
+    <a asp-action="EditCompany" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</p>
+<p>
+    @Html.ActionLink("Редактировать компанию", "EditCompany", new { @Model.Id })
+    @*@Html.ActionLink(item.Surname, "Details", new { item.ID })*@
+</p>
+
+@if (Model.Image != null)
+{
+    <div class="pull-left" style="margin-right: 10px">
+        <img class="img-thumbnail" width="300" height="300"
+             src="@Url.Action("GetImage", "Company",
+                new { Model.Id })" />
+    </div>
+}
+
