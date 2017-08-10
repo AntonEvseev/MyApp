@@ -177,10 +177,10 @@ namespace CRM.Controllers
                              .Select(a => new
                              {
                                  //Id = a.Id.ToString(),
-                                 //value = a.Name,
+                                 value = a.Name,
                                  //value = a.Id.ToString(),
                                  Id = a.Id.ToString(),
-                                 value = a.Id,
+                                 //value = a.Id,
                                  label = a.Name
                                  
                              }).ToList();

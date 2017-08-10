@@ -18,7 +18,8 @@ namespace CRM.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View(db.Contacts);
+                var contacts = db.Contacts.Include(c => c.Companies);
+                return View(contacts.ToList());
             }
             else
             {

@@ -46,7 +46,7 @@
             <input type="file" name="uploadImage" />
         </div>
         @Html.HiddenFor(model => model.CompanyId, new { data_company_id = string.Empty })
-        <input type="text" name="name" id="f" data-autocomplete-source='@Url.Action("GetSearchValue", "Company")' />
+        <input type="text" name="name" id="searchTerm" data-autocomplete-source='@Url.Action("GetSearchValue", "Company")' />
         @*<div>
             <label>Компания</label>
             <input class="form-control" id="searсhInput" />
@@ -76,8 +76,15 @@
             var target = $(this);
             target.autocomplete({
                 source: target.attr("data-autocomplete-source"),
-                select: function( event, ui ) {
-                    $('input[data-company-id]').val(ui.value);
+                //response: function (event, ui) {
+                //    ui.content.forEach(function (item) {
+                //        item.value = item.Name; // У вас с большой буквы Name
+                //        item.label = item.Name; // У вас с большой буквы Name
+                //    })
+                //},
+                select: function (event, ui) {
+                    //$('input[data-company-id]').val(ui.item.value);
+                    $('input[data-company-id]').val(ui.item.Id);
                     
                     
                 }

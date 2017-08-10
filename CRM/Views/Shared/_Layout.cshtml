@@ -5,19 +5,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/jquery")
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/jquery")
     <link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />
-    
+
     @*@Scripts.Render("~/bundles/modernizr")*@
     @*<script src="~/scripts/jquery-1.12.4.min.js"></script>
-    <script src="~/scripts/jquery-ui-1.12.1.min.js"></script>*@
-    
+        <script src="~/scripts/jquery-ui-1.12.1.min.js"></script>*@
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header" >
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -25,40 +25,58 @@
                 </button>
                 @Html.ActionLink("CRM Evseev", "Index", "Calendar", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse" style="float:left;">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
+            @* тут были ссылки*@
+            <div class="navbar-collapse collapse">
+                <div class="navbar-collapse collapse">
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <ul class="nav navbar-nav navbar-right">
+                            @if (Request.IsAuthenticated)
+                            {
+                                <li>
+                                    @Html.ActionLink("Здравствуйте, " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                </li>
+                            }
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+                        </ul>
+                    }
+                    <form class="navbar-form navbar-right">
+                        <input type="text" class="form-control" placeholder="Search...">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar" style="position:fixed;">
+                <ul class="nav nav-sidebar">
+                    <li class="active">@Html.ActionLink("Calendar", "Index", "Calendar")</li>
                     <li>@Html.ActionLink("Contact", "Index", "Contact")</li>
                     <li>@Html.ActionLink("Company", "Index", "Company")</li>
                 </ul>
             </div>
-            
-            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-            {
-                @Html.AntiForgeryToken()
-                
-                <ul class="nav navbar-nav navbar-right">
-                @if (Request.IsAuthenticated)
-                {
-                    <li>
-                       @Html.ActionLink("Здравствуйте, " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-                    </li>
-                }
-                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
-                </ul>
-                
-            }
+            @*<div class="navbar navbar-inverse" style="float:left; width:100px;">
+                    <div class=" navbar-collapse collapse" style="float:left;">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
+                            <li>@Html.ActionLink("Contact", "Index", "Contact")</li>
+                            <li>@Html.ActionLink("Company", "Index", "Company")</li>
+                        </ul>
+                    </div>
+                </div>*@
+            <div class="container body-content col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                @RenderBody()
+                <hr />
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - Anton Evseev</p>
+                </footer>
+            </div>
+        </div>
+    </div>
 
-</div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Anton Evseev</p>
-        </footer>
-    </div>
-    
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
